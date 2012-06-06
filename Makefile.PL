@@ -1,8 +1,10 @@
 use ExtUtils::MakeMaker;
+use POSIX;
 
 ##{ $share_dir_code{preamble} || '' ##}
 
-my $ForexConnectHome = "ForexConnectWrapper/ForexConnectAPI-1.1.3-Linux-x86_64";
+my ($sysname, $nodename, $release, $version, $machine) = POSIX::uname();
+my $ForexConnectHome = "ForexConnectWrapper/ForexConnectAPI-1.1.3-$sysname-$machine";
 WriteMakefile(
     NAME                => 'Finance::FXCM::Simple',
     LIBS                => ["-L$ForexConnectHome/lib -lForexConnect -lfxmsg"],
