@@ -5,7 +5,7 @@ package Finance::FXCM::Simple;
 
 require XSLoader;
 XSLoader::load(
-    'ForexConnectWrapper',
+    'Finance::FXCM::Simple',
     $Finance::FXCM::Simple::{VERSION} ? ${ $Finance::FXCM::Simple::{VERSION} } : ()
 );
 
