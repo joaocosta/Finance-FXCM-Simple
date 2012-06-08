@@ -16,6 +16,7 @@ extern "C" {
 }
 #endif
 
+using namespace std;
 
 
 MODULE = Finance::FXCM::Simple		PACKAGE = Finance::FXCM::Simple		
@@ -38,7 +39,7 @@ ForexConnectWrapper::openMarket(const char *symbol, const char *direction, int a
 void
 ForexConnectWrapper::closeMarket(const char *tradeID, int amount)
 
-const char *
+string
 ForexConnectWrapper::getTrades()
 
 double

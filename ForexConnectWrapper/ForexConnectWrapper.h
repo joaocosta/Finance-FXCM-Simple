@@ -92,7 +92,7 @@ class ForexConnectWrapper {
         double getNav();
         void openMarket(const std::string, const std::string, int);
         void closeMarket(const std::string, int);
-        const char* getTrades();
+        std::string getTrades();
         int getBaseUnitSize(const std::string);
         void saveHistoricalDataToFile(const std::string, const std::string, const std::string, int);
 };

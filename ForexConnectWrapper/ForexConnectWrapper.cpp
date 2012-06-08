@@ -158,7 +158,7 @@ void ForexConnectWrapper::closeMarket(const std::string tradeID, int amount) {
     ll->release();
 }
 
-const char* ForexConnectWrapper::getTrades() {
+std::string ForexConnectWrapper::getTrades() {
     std::string rv;
     IO2GRequest *request = mRequestFactory->createRefreshTableRequestByAccount(Trades, sAccountID.c_str());
 
@@ -206,7 +206,7 @@ const char* ForexConnectWrapper::getTrades() {
     }
     reader->release();
 
-    return rv.c_str();
+    return rv;
 }
 
 double ForexConnectWrapper::getNav() {
