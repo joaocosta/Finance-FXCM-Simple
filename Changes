@@ -1,4 +1,5 @@
 Revision history for Perl extension ForexConnect.
-
+0.002  Fri Jun  8 20:56:16
+    - Convert C++ exceptions to perl croaks
 0.001  Tue Jun  5 18:23:20 2012
 	- original version

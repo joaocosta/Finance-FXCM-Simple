@@ -16,6 +16,9 @@ extern "C" {
 }
 #endif
 
+#define TRY try {
+#define CATCH } catch (char const* error) {  Perl_croak(aTHX_ error); }
+
 using namespace std;
 
 
@@ -29,24 +32,56 @@ ForexConnectWrapper::DESTROY()
 
 double
 ForexConnectWrapper::getAsk(const char *symbol)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 double
 ForexConnectWrapper::getBid(const char *symbol)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 void
 ForexConnectWrapper::openMarket(const char *symbol, const char *direction, int amount)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 void
 ForexConnectWrapper::closeMarket(const char *tradeID, int amount)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 string
 ForexConnectWrapper::getTrades()
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 double
 ForexConnectWrapper::getNav()
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 int
 ForexConnectWrapper::getBaseUnitSize(const char *symbol)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 void
 ForexConnectWrapper::saveHistoricalDataToFile(const char *filename, const char *symbol, const char * tf, int totalItemsToDownload)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
