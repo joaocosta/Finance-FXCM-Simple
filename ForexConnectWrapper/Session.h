@@ -26,7 +26,7 @@ class Session : public IO2GSessionStatus {
         /** Callback called when session status has been changed. */
         virtual void  onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status);
 
-        bool loginAndWait(const char *, const char *, const char *, const char *);
+        bool loginAndWait(const std::string, const std::string, const std::string, const std::string);
         bool logoutAndWait();
         IO2GSessionStatus::O2GSessionStatus getStatusCode() const;
 };

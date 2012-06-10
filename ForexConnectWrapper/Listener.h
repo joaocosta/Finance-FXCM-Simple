@@ -10,8 +10,8 @@ class Listener : public IO2GResponseListener {
         bool mWaitingForUpdateEvent;
         double mTimeout;
         IO2GResponse *mResponse;
-        const char *mCompletedRequestId;
-        const char *mFailReason;
+        std::string mCompletedRequestId;
+        std::string mFailReason;
     public:
         Listener(IO2GSession *);
         ~Listener();
@@ -22,5 +22,5 @@ class Listener : public IO2GResponseListener {
         virtual void onRequestCompleted(const char *requestId, IO2GResponse  *response = 0);
         virtual void onRequestFailed(const char *requestId , const char *error);
         virtual void onTablesUpdates(IO2GResponse *data);
-        const char* getFailReason();
+        const std::string getFailReason();
 };

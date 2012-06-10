@@ -11,6 +11,9 @@ Listener::Listener(IO2GSession *session)
     mWaitingForUpdateEvent = false;
     mTimeout = 10.0;
     mRefCount = 1;
+    mResponse = NULL;
+    mCompletedRequestId = "";
+    mFailReason = "";
 }
 
 Listener::~Listener()
@@ -22,7 +25,7 @@ void Listener::onRequestCompleted(const char *requestId, IO2GResponse  *response
     mCompletedRequestId = requestId;
     mResponse = response;
     mResponse->addRef();
-    mFailReason = NULL;
+    mFailReason = "";
     mRequestInProgress = false;
 }
 
@@ -82,7 +85,7 @@ IO2GResponse* Listener::sendRequest(IO2GRequest *request) {
     return mResponse;
 }
 
-const char* Listener::getFailReason() {
+const std::string Listener::getFailReason() {
     return mFailReason;
 }
 

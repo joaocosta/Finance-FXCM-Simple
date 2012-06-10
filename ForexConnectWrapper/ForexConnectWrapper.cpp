@@ -6,7 +6,7 @@
 #include "Listener.h"
 #include "Session.h"
 
-ForexConnectWrapper::ForexConnectWrapper(const char *user, const char *password, const char *accountType, const char *url) {
+ForexConnectWrapper::ForexConnectWrapper(const std::string user, const std::string password, const std::string accountType, const std::string url) {
 
     session = CO2GTransport::createSession();
     listener = new Session(session);
@@ -38,6 +38,7 @@ ForexConnectWrapper::ForexConnectWrapper(const char *user, const char *password,
 
 ForexConnectWrapper::~ForexConnectWrapper() {
     mRequestFactory->release();
+    accountRow->release();
     mResponseReaderFactory->release();
 
     listener->logoutAndWait();

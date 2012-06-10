@@ -85,7 +85,7 @@ class ForexConnectWrapper {
             RowType* getTableRow(O2GTable, std::string, bool (*finderFunc)(RowType *, std::string), ReaderType* (*readerCreateFunc)(IO2GResponseReaderFactory* , IO2GResponse *));
 
     public:
-        ForexConnectWrapper(const char *, const char *, const char *, const char *);
+        ForexConnectWrapper(const std::string, const std::string, const std::string, const std::string);
         ~ForexConnectWrapper();
         double getAsk(const std::string);
         double getBid(const std::string);

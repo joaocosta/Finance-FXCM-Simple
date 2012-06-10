@@ -69,14 +69,14 @@ void Session::onSessionStatusChanged(IO2GSessionStatus::O2GSessionStatus status)
     mStatusCode = status;
 }
 
-bool Session::loginAndWait(const char *user, const char *password, const char *url, const char *accountType) {
+bool Session::loginAndWait(const std::string user, const std::string password, const std::string url, const std::string accountType) {
 
     if (mStatusCode == IO2GSessionStatus::Connected) {
         return true;
     }
 
     if (mStatusCode != IO2GSessionStatus::Connecting) {
-        mSession->login(user, password, url, accountType);
+        mSession->login(user.c_str(), password.c_str(), url.c_str(), accountType.c_str());
     }
     std::time_t started = time(NULL);
 
