@@ -1,5 +1,6 @@
 use ExtUtils::MakeMaker;
-$ForexConnectHome = "ForexConnectAPI-1.1.3-Linux-x86_64";
+my ($sysname, $nodename, $release, $version, $machine) = POSIX::uname();
+my $ForexConnectHome = "ForexConnectWrapper/ForexConnectAPI-1.1.3-$sysname-$machine";
 WriteMakefile(
     NAME => 'ForexConnect::ForexConnectWrapper',
     SKIP => [qw(all static static_lib dynamic dynamic_lib)],
