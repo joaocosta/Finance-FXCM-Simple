@@ -66,7 +66,7 @@ ForexConnectWrapper::getTrades()
         CATCH
 
 double
-ForexConnectWrapper::getNav()
+ForexConnectWrapper::getBalance()
     INIT:
         TRY
     CLEANUP:
