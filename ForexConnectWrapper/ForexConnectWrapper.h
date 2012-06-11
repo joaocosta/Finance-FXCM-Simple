@@ -89,7 +89,7 @@ class ForexConnectWrapper {
         ~ForexConnectWrapper();
         double getAsk(const std::string);
         double getBid(const std::string);
-        double getNav();
+        double getBalance();
         void openMarket(const std::string, const std::string, int);
         void closeMarket(const std::string, int);
         std::string getTrades();

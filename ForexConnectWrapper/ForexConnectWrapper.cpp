@@ -164,8 +164,8 @@ std::string ForexConnectWrapper::getTrades() {
     return rv;
 }
 
-double ForexConnectWrapper::getNav() {
-    return accountRow->getM2MEquity();
+double ForexConnectWrapper::getBalance() {
+    return accountRow->getBalance();
 }
 
 int ForexConnectWrapper::getBaseUnitSize(const std::string symbol) {

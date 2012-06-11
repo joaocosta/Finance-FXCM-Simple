@@ -1,5 +1,7 @@
 Revision history for Perl extension ForexConnect.
-0.004  Mon Jun 11 21:10:01
+0.005  Mon Jun 11 19:38:16
+    - Remove getNav() method which is not returning current Net Asset Value as it should.  Instead add getBalance() method which returns current account balance ( before p/l of open positions)
+0.004  Mon Jun 11 19:10:01
     - Fix saveHistoricalDataToFile method which is returning open prices in high, low and close fields.
 0.003  Sun Jun 10 16:42:25
     - Use std::string instead of char *
