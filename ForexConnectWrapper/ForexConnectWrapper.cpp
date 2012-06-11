@@ -90,52 +90,6 @@ double ForexConnectWrapper::getAsk(const std::string symbol) {
     return rv;
 }
 
-/*
-
-void ForexConnectWrapper::closeMarket(const std::string tradeID, int amount) {
-    IO2GTradeRow *trade = getTableRow<IO2GTradeRow, IO2GTradesTableResponseReader>(Trades, tradeID, &findTradeRowByTradeId, &getTradesReader);
-
-    IO2GValueMap *valuemap = mRequestFactory->createValueMap();
-    valuemap->setString(Command, O2G2::Commands::CreateOrder);
-    valuemap->setString(OrderType, O2G2::Orders::TrueMarketClose);
-    valuemap->setString(AccountID, sAccountID.c_str());
-    valuemap->setString(OfferID, trade->getOfferID());
-    valuemap->setString(TradeID, tradeID.c_str());
-    valuemap->setString(BuySell, ( strncmp(trade->getBuySell(), "B", 1) == 0 ? O2G2::Sell : O2G2::Buy ) );
-    trade->release();
-    valuemap->setInt(Amount, amount);
-    //valuemap->setString(CustomID, "Custom");
-
-    IO2GRequest *request = mRequestFactory->createOrderRequest(valuemap);
-    valuemap->release();
-
-
-    ResponseListener *responseListener = new ResponseListener(session);
-
-    std::string sLastRequestID = request->getRequestID();
-    responseListener->setRequest(sLastRequestID.c_str());
-    session->subscribeResponse(responseListener);
-
-    session->sendRequest(request);
-    HANDLE aEvents[2];
-    aEvents[0] = responseListener->getResponseEvent();
-    aEvents[1] = responseListener->getUpdateEvent();
-    uni::WaitForMultipleObjects(2, aEvents, 1, INFINITE);
-
-    request->release();
-
-    if ( responseListener->getRequestSuccess() ) {
-    } else {
-    //TODO: Request not successfull
-        printf("Request was not successfull");
-
-    }
-
-    session->unsubscribeResponse(responseListener);
-    responseListener->release();
-}
-*/
-
 void ForexConnectWrapper::closeMarket(const std::string tradeID, int amount) {
     IO2GTradeRow *trade = getTableRow<IO2GTradeRow, IO2GTradesTableResponseReader>(Trades, tradeID, &findTradeRowByTradeId, &getTradesReader);
 
@@ -317,7 +271,7 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
                 double date = marketSnapshotReader->getDate(i);
                 std::string dateTimeStr;
                 formatDate(date, dateTimeStr);
-                outputFile << dateTimeStr << "\t" << double2str(marketSnapshotReader->getAskOpen(i)) << "\t" << double2str(marketSnapshotReader->getAskOpen(i)) << "\t" << double2str(marketSnapshotReader->getAskOpen(i)) << "\t" << double2str(marketSnapshotReader->getAskOpen(i)) << "\t" << std::endl;
+                outputFile << dateTimeStr << "\t" << double2str(marketSnapshotReader->getAskOpen(i)) << "\t" << double2str(marketSnapshotReader->getAskHigh(i)) << "\t" << double2str(marketSnapshotReader->getAskLow(i)) << "\t" << double2str(marketSnapshotReader->getAskClose(i)) << "\t" << std::endl;
 
             }
 

@@ -1,4 +1,6 @@
 Revision history for Perl extension ForexConnect.
+0.004  Mon Jun 11 21:10:01
+    - Fix saveHistoricalDataToFile method which is returning open prices in high, low and close fields.
 0.003  Sun Jun 10 16:42:25
     - Use std::string instead of char *
     - release point to IO2GAccountRow object on desctrutor
