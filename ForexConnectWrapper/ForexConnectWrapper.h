@@ -7,6 +7,7 @@
 #include <sstream>
 #include "ForexConnect.h"
 #include "Session.h"
+#include "ILog.h"
 
 inline tm *uni_gmtime(time_t *t)
 {
@@ -19,7 +20,7 @@ inline tm *uni_gmtime(time_t *t)
 #endif
 }
 
-class ForexConnectWrapper {
+class ForexConnectWrapper : public ILog {
     private:
 
         static bool findTradeRowByTradeId(IO2GTradeRow *row, std::string tradeID) {

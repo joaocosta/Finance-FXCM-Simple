@@ -1,8 +1,9 @@
 #pragma once
 #include "ForexConnect.h"
 #include "Interlocked.h"
+#include "ILog.h"
 
-class Listener : public IO2GResponseListener {
+class Listener : public IO2GResponseListener, ILog {
     private:
         long mRefCount;
         IO2GSession *mSession;

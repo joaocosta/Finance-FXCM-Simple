@@ -12,6 +12,7 @@ ForexConnectWrapper::ForexConnectWrapper(const std::string user, const std::stri
     listener = new Session(session);
 
     if (!listener->loginAndWait(user, password, url, accountType)) {
+        log("Failed to login");
         throw "Failed to login";
     }
 
@@ -19,11 +20,13 @@ ForexConnectWrapper::ForexConnectWrapper(const std::string user, const std::stri
 
     loginRules = session->getLoginRules();
     if (!loginRules->isTableLoadedByDefault(::Accounts)) {
+        log("Accounts table not loaded");
         throw "Accounts table not loaded";
     }
 
     IO2GResponse *response = loginRules->getTableRefreshResponse(::Accounts);
     if(!response) {
+        log("No response to refresh accounts table request");
         throw "No response to refresh accounts table request";
     }
 
@@ -49,6 +52,7 @@ ForexConnectWrapper::~ForexConnectWrapper() {
 
 void ForexConnectWrapper::openMarket(const std::string symbol, const std::string direction, int amount) {
     if (direction != O2G2::Sell && direction != O2G2::Buy) {
+        log("Direction must be 'B' or 'S'");
         throw "Direction must be 'B' or 'S'";
     }
 
@@ -122,6 +126,7 @@ std::string ForexConnectWrapper::getTrades() {
     request->release();
     ll->release();
     if (!response) {
+        log("No response to Trades table refresh request");
         throw "No response to Trades table refresh request";
     }
 
@@ -190,11 +195,13 @@ RowType* ForexConnectWrapper::getTableRow(O2GTable table, std::string key, bool 
         request->release();
         ll->release();
         if (!response) {
+            log("No response to manual table refresh request");
             throw "No response to manual table refresh request";
         }
     } else {
         response = loginRules->getTableRefreshResponse(table);
         if (!response) {
+            log("No response to automatic table refresh request");
             throw "No response to automatic table refresh request";
         }
     }
@@ -215,6 +222,7 @@ RowType* ForexConnectWrapper::getTableRow(O2GTable table, std::string key, bool 
     reader->release();
 
     if (row == NULL) {
+        log("Could not find row");
         throw "Could not find row";
     }
 
@@ -238,6 +246,7 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
         timeframeCollection->release();
 
         if (!timeframeObject) {
+            log("Could not find timeframe");
             throw "Could not find timeframe";
         }
 

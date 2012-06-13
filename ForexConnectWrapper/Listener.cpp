@@ -39,6 +39,7 @@ void Listener::onRequestFailed(const char *requestId , const char *error) {
 
 void Listener::onTablesUpdates(IO2GResponse *data) {
     if (data == NULL) {
+        log("onTablesUpdates called with NULL data");
         throw "onTablesUpdates called with NULL data";
     }
 
