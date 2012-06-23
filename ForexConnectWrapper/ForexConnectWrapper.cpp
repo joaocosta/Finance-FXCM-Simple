@@ -262,7 +262,7 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
         timeinfo.tm_min = 0;
         timeinfo.tm_sec = 0;
 
-        CO2GDateUtils::UnixTimeToVariantTime(&timeinfo, &timeFrom);
+        CO2GDateUtils::CTimeToOleTime(&timeinfo, &timeFrom);
         std::string dd;
         formatDate(timeFrom, dd);
 
