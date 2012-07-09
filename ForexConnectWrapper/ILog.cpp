@@ -8,5 +8,5 @@ ILog::~ILog() {
 }
 
 void ILog::log(std::string msg, int level) {
- std::cerr << msg << std::endl;
+ std::cerr << "[ForexConnectWrapper] " << msg << std::endl;
 }
