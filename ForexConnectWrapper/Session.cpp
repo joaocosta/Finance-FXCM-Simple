@@ -75,7 +75,9 @@ bool Session::loginAndWait(const std::string user, const std::string password, c
         return true;
     }
 
+
     if (mStatusCode != IO2GSessionStatus::Connecting) {
+        mSession->useTableManager(::Yes, NULL);
         mSession->login(user.c_str(), password.c_str(), url.c_str(), accountType.c_str());
     }
     std::time_t started = time(NULL);
