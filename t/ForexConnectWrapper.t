@@ -1,10 +1,29 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
+use Test::More tests => 5;
+use Scalar::Util qw(looks_like_number);
+use YAML::Syck;
+use Data::Dumper;
+
 BEGIN { use_ok('Finance::FXCM::Simple') };
 
-my $ff = Finance::FXCM::Simple->new("GBD118836001", "5358", "Demo", "http://www.fxcorporate.com/Hosts.jsp");
-#print $ff->getAsk("EUR/USD"), "\n";
-#$ff->saveHistoricalDataToFile("/tmp/test.tmp", "EUR/USD", "m5", 500);
+eval {
+    my $ff = Finance::FXCM::Simple->new("GBD118836001", "5358", "Demo", "http://www.fxcorporate.com/Hosts.jsp");
+    ok(looks_like_number($ff->getAsk("EUR/USD")), "getAsk returns a number");
+    ok(looks_like_number($ff->getBid("EUR/USD")), "getBid returns a number");
+    $ff->openMarket("EUR/USD", "B", 5000);
+    my $trades = YAML::Syck::Load($ff->getTrades());
+    is(@$trades, 1, "1 trade opened");
+    foreach my $trade(@$trades) {
+        print Dumper(\$trade);
+        $ff->closeMarket($trade->{id}, $trade->{size});
+    }
+    $trades = YAML::Syck::Load($ff->getTrades());
+    is(@$trades, 0, "All trades closed");
 
+};
+
+if ($@) {
+    print "Error: " . $@;
+}
