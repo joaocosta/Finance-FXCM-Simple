@@ -49,6 +49,8 @@ class ForexConnectWrapper : public ILog {
             return oss.str();
         }
 
+        std::string getOfferID(std::string);
+
         static std::string int2str(int i) {
             std::stringstream oss;
             oss << i;
@@ -80,10 +82,11 @@ class ForexConnectWrapper : public ILog {
         IO2GRequestFactory* mRequestFactory;
         std::string sAccountID;
         bool connected;
-        IO2GTradeRow* getTradeRow(std::string);
+        IO2GTradeTableRow* getTradeTableRow(std::string);
         IO2GOfferRow* getOfferRow(std::string);
         template <class RowType, class ReaderType>
             RowType* getTableRow(O2GTable, std::string, bool (*finderFunc)(RowType *, std::string), ReaderType* (*readerCreateFunc)(IO2GResponseReaderFactory* , IO2GResponse *));
+        IO2GTableManager* getLoadedTableManager();
 
     public:
         ForexConnectWrapper(const std::string, const std::string, const std::string, const std::string);

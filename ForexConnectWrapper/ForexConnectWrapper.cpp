@@ -1,10 +1,12 @@
 #include "ForexConnectWrapper.h"
 #include <string>
+#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include "ForexConnect.h"
 #include "Listener.h"
+#include "TableListener.h"
 #include "Session.h"
 
 ForexConnectWrapper::ForexConnectWrapper(const std::string user, const std::string password, const std::string accountType, const std::string url) {
@@ -52,15 +54,43 @@ ForexConnectWrapper::~ForexConnectWrapper() {
     session->release();
 }
 
+std::string ForexConnectWrapper::getOfferID(std::string instrument) {
+        IO2GTableManager *tableManager = getLoadedTableManager();
+        IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager->getTable(::Offers);
+        tableManager->release();
+
+        IO2GOfferTableRow *offerRow = NULL;
+        IO2GTableIterator tableIterator;
+
+        std::string sOfferID;
+
+        while (offersTable->getNextRow(tableIterator, offerRow)) {
+            if (instrument == offerRow->getInstrument()) {
+                break;
+            }
+        }
+        offersTable->release();
+
+        if (offerRow) {
+            sOfferID = offerRow->getOfferID();
+            offerRow->release();
+        } else {
+            std::stringstream ss;
+            ss << "Could not find offer row for instrument " << instrument;
+            log(ss.str());
+            throw ss.str().c_str();
+        }
+
+        return sOfferID;
+}
+
 void ForexConnectWrapper::openMarket(const std::string symbol, const std::string direction, int amount) {
     if (direction != O2G2::Sell && direction != O2G2::Buy) {
         log("Direction must be 'B' or 'S'");
         throw "Direction must be 'B' or 'S'";
     }
 
-    IO2GOfferRow *offer = getTableRow<IO2GOfferRow, IO2GOffersTableResponseReader>(Offers, symbol, &findOfferRowBySymbol, &getOffersReader);
-    std::string sOfferID = offer->getOfferID();
-    offer->release();
+    std::string sOfferID = getOfferID(symbol);
 
     IO2GValueMap *valuemap = mRequestFactory->createValueMap();
     valuemap->setString(Command, O2G2::Commands::CreateOrder);
@@ -74,12 +104,30 @@ void ForexConnectWrapper::openMarket(const std::string symbol, const std::string
     IO2GRequest *orderRequest = mRequestFactory->createOrderRequest(valuemap);
     valuemap->release();
 
+    TableListener *tableListener = new TableListener();
+    tableListener->setRequestID(orderRequest->getRequestID());
+
+    IO2GTableManager *tableManager = getLoadedTableManager();
+    subscribeTableListener(tableManager, tableListener);
 
     Listener *ll = new Listener(session);
-    ll->sendRequest(orderRequest);
+    IO2GResponse *response = ll->sendRequest(orderRequest);
     orderRequest->release();
     ll->release();
-    usleep(1500000);//TODO Horrible hack, look at IO2GTableListener instead
+
+    if (!response) {
+        std::stringstream ss;
+        ss << "Failed to send openMarket request " << symbol << " " << direction << " " << amount;
+        log(ss.str());
+        throw ss.str().c_str();
+    }
+
+    tableListener->waitForTableUpdate();
+
+    response->release();
+    unsubscribeTableListener(tableManager, tableListener);
+    tableListener->release();
+    tableManager->release();
 }
 
 double ForexConnectWrapper::getBid(const std::string symbol) {
@@ -98,8 +146,34 @@ double ForexConnectWrapper::getAsk(const std::string symbol) {
     return rv;
 }
 
+IO2GTradeTableRow* ForexConnectWrapper::getTradeTableRow(std::string tradeID) {
+        IO2GTableManager *tableManager = getLoadedTableManager();
+        IO2GTradesTable *tradesTable = (IO2GTradesTable *)tableManager->getTable(::Trades);
+        tableManager->release();
+
+        IO2GTradeTableRow *tradeRow = NULL;
+        IO2GTableIterator tableIterator;
+
+        std::string sOfferID;
+
+        while (tradesTable->getNextRow(tableIterator, tradeRow)) {
+            if (tradeID == tradeRow->getTradeID()) {
+                break;
+            }
+        }
+        tradesTable->release();
+
+        return tradeRow;
+}
+
 void ForexConnectWrapper::closeMarket(const std::string tradeID, int amount) {
-    IO2GTradeRow *trade = getTableRow<IO2GTradeRow, IO2GTradesTableResponseReader>(Trades, tradeID, &findTradeRowByTradeId, &getTradesReader);
+    IO2GTradeTableRow *trade = getTradeTableRow(tradeID);
+    if (!trade) {
+        std::stringstream ss;
+        ss << "Could not find trade with ID = " << tradeID;
+        log(ss.str());
+        throw ss.str().c_str();
+    }
 
     IO2GValueMap *valuemap = mRequestFactory->createValueMap();
     valuemap->setString(Command, O2G2::Commands::CreateOrder);
@@ -115,21 +189,47 @@ void ForexConnectWrapper::closeMarket(const std::string tradeID, int amount) {
     IO2GRequest *request = mRequestFactory->createOrderRequest(valuemap);
     valuemap->release();
 
+    TableListener *tableListener = new TableListener();
+    tableListener->setRequestID(request->getRequestID());
+
+    IO2GTableManager *tableManager = getLoadedTableManager();
+    subscribeTableListener(tableManager, tableListener);
+
     Listener *ll = new Listener(session);
-    ll->sendRequest(request);
+    IO2GResponse *response = ll->sendRequest(request);
     request->release();
     ll->release();
+
+    if (!response) {
+        std::stringstream ss;
+        ss << "Failed to get response to closeMarket request " << tradeID << " " << amount;
+        log(ss.str());
+        throw ss.str().c_str();
+    }
+
+    tableListener->waitForTableUpdate();
+
+    response->release();
+    unsubscribeTableListener(tableManager, tableListener);
+    tableListener->release();
+    tableManager->release();
 }
 
-std::string ForexConnectWrapper::getTrades() {
-    std::string rv;
+IO2GTableManager* ForexConnectWrapper::getLoadedTableManager() {
     IO2GTableManager *tableManager = session->getTableManager();
 
     while (tableManager->getStatus() != TablesLoaded) {
         usleep(50);
         if (tableManager->getStatus() == TablesLoadFailed)
-            throw "Failed to load trades table";
+            throw "Failed to load tables";
     }
+
+    return tableManager;
+}
+
+std::string ForexConnectWrapper::getTrades() {
+    std::string rv;
+    IO2GTableManager *tableManager = getLoadedTableManager();
 
     IO2GTradesTable *tradesTable = (IO2GTradesTable *)tableManager->getTable(Trades);
     IO2GTradeTableRow *tradeRow = NULL;
@@ -215,7 +315,7 @@ RowType* ForexConnectWrapper::getTableRow(O2GTable table, std::string key, bool 
         std::stringstream ss;
         ss << "Could not find row for key " << key;
         log(ss.str());
-        throw ss.str();
+        throw ss.str().c_str();
     }
 
     return row;
