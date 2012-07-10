@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 #define TRY try {
-#define CATCH } catch (std::string error) {  Perl_croak(aTHX_ error.c_str()); }
+#define CATCH } catch (char const* error) {  Perl_croak(aTHX_ error); }
+
 
 using namespace std;
 
