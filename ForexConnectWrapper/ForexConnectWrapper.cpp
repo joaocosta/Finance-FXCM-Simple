@@ -243,6 +243,7 @@ std::string ForexConnectWrapper::getTradesAsYAML() {
         IO2GOfferRow *offer = getTableRow<IO2GOfferRow, IO2GOffersTableResponseReader>(Offers, tradeRow->getOfferID(), &findOfferRowByOfferId, &getOffersReader);
 
         rv.append("- symbol: ").append(offer->getInstrument()).append("\n");
+        offer->release();
         rv.append("  id: ").append(tradeRow->getTradeID()).append("\n");
         rv.append("  direction: ").append(isLong ? "long" : "short").append("\n");
         rv.append("  openPrice: ").append(double2str(tradeRow->getOpenRate())).append("\n");
@@ -325,10 +326,9 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
         IO2GTimeframeCollection *timeframeCollection = mRequestFactory->getTimeFrameCollection();
         IO2GTimeframe *timeframeObject = NULL;
         int timeframeCollectionSize = timeframeCollection->size();
-
         for (int i = 0; i < timeframeCollectionSize; i++) {
             IO2GTimeframe *searchTimeframeObject = timeframeCollection->get(i);
-            if ( tf == searchTimeframeObject->getID()) {
+            if ( tf == searchTimeframeObject->getID() ) {
                 timeframeObject = searchTimeframeObject;
                 break;
             } else {
@@ -365,8 +365,14 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
             IO2GRequest *marketDataRequest = mRequestFactory->createMarketDataSnapshotRequestInstrument(symbol.c_str(), timeframeObject, totalItemsToDownload > 300 ? 300 : totalItemsToDownload);
             mRequestFactory->fillMarketDataSnapshotRequestTime(marketDataRequest, timeFrom, timeTo, false);
             IO2GResponse *marketDataResponse = ll->sendRequest(marketDataRequest);
+            if (!marketDataResponse) {
+                throw "no response to marketDataRequest";
+            }
 
             IO2GMarketDataSnapshotResponseReader *marketSnapshotReader = mResponseReaderFactory->createMarketDataSnapshotReader(marketDataResponse);
+            if (!marketSnapshotReader) {
+                throw "Failed to create marketSnapshotReader";
+            }
             int snapshotSize = marketSnapshotReader->size();
             for (int i = snapshotSize - 1; i >= 0; i--) {
                 double date = marketSnapshotReader->getDate(i);
@@ -382,6 +388,7 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
             }
             marketSnapshotReader->release();
         }
+        timeframeObject->release();
         ll->release();
         outputFile.close();
 }
