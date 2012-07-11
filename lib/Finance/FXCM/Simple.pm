@@ -9,4 +9,11 @@ XSLoader::load(
     $Finance::FXCM::Simple::{VERSION} ? ${ $Finance::FXCM::Simple::{VERSION} } : ()
 );
 
+use YAML::Syck;
+
+sub getTrades {
+    my ($self) = @_;
+    my $trades = YAML::Syck::Load($self->getTradesAsYAML());
+    return $trades;
+}
 1;

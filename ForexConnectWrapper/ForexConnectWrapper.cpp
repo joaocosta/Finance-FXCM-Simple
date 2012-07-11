@@ -227,7 +227,7 @@ IO2GTableManager* ForexConnectWrapper::getLoadedTableManager() {
     return tableManager;
 }
 
-std::string ForexConnectWrapper::getTrades() {
+std::string ForexConnectWrapper::getTradesAsYAML() {
     std::string rv;
     IO2GTableManager *tableManager = getLoadedTableManager();
 

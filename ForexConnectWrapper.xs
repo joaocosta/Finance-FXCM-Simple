@@ -60,7 +60,7 @@ ForexConnectWrapper::closeMarket(const char *tradeID, int amount)
         CATCH
 
 string
-ForexConnectWrapper::getTrades()
+ForexConnectWrapper::getTradesAsYAML()
     INIT:
         TRY
     CLEANUP:

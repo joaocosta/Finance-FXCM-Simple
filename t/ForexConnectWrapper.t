@@ -3,7 +3,6 @@ use warnings;
 
 use Test::More tests => 5;
 use Scalar::Util qw(looks_like_number);
-use YAML::Syck;
 use Data::Dumper;
 
 BEGIN { use_ok('Finance::FXCM::Simple') };
@@ -13,13 +12,13 @@ eval {
     ok(looks_like_number($ff->getAsk("EUR/USD")), "getAsk returns a number");
     ok(looks_like_number($ff->getBid("EUR/USD")), "getBid returns a number");
     $ff->openMarket("EUR/USD", "B", 5000);
-    my $trades = YAML::Syck::Load($ff->getTrades());
+    my $trades = $ff->getTrades();
     is(@$trades, 1, "1 trade opened");
     foreach my $trade(@$trades) {
         print Dumper(\$trade);
         $ff->closeMarket($trade->{id}, $trade->{size});
     }
-    $trades = YAML::Syck::Load($ff->getTrades());
+    $trades = $ff->getTrades();
     is(@$trades, 0, "All trades closed");
 
 };

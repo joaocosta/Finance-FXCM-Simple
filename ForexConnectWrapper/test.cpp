@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
         tradeStation->closeMarket("12914191", 3000);
         //tradeStation->openMarket("AUD/USD", "B", 3000);
 
-        std::string trades = tradeStation->getTrades();
+        std::string trades = tradeStation->getTradesAsYAML();
         printf("%s\n", trades.c_str());
     }
 

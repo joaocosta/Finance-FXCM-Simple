@@ -96,7 +96,7 @@ class ForexConnectWrapper : public ILog {
         double getBalance();
         void openMarket(const std::string, const std::string, int);
         void closeMarket(const std::string, int);
-        std::string getTrades();
+        std::string getTradesAsYAML();
         int getBaseUnitSize(const std::string);
         void saveHistoricalDataToFile(const std::string, const std::string, const std::string, int);
 };
