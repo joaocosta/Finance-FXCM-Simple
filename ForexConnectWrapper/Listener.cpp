@@ -12,7 +12,7 @@ Listener::Listener(IO2GSession *session)
     mTimeout = 10.0;
     mRefCount = 1;
     mResponse = NULL;
-    mCompletedRequestId = "";
+    mWaitingRequestId = "";
     mFailReason = "";
 }
 
@@ -22,15 +22,20 @@ Listener::~Listener()
 }
 
 void Listener::onRequestCompleted(const char *requestId, IO2GResponse  *response) {
-    mCompletedRequestId = requestId;
+    if (strcmp(requestId, mWaitingRequestId.c_str())) {
+        return;
+    }
     mResponse = response;
     mResponse->addRef();
     mFailReason = "";
     mRequestInProgress = false;
+    mWaitingRequestId = "";
 }
 
 void Listener::onRequestFailed(const char *requestId , const char *error) {
-    mCompletedRequestId = requestId;
+    if (strcmp(requestId, mWaitingRequestId.c_str())) {
+        return;
+    }
     mResponse = NULL;
     mFailReason = error;
     mRequestInProgress = false;
@@ -49,6 +54,7 @@ void Listener::onTablesUpdates(IO2GResponse *data) {
 }
 
 IO2GResponse* Listener::sendRequestAndWaitForUpdateEvent(IO2GRequest *request) {
+    mWaitingRequestId = request->getRequestID();
     mRequestInProgress = true;
     mWaitingForUpdateEvent = true;
     mSession->subscribeResponse(this);
@@ -69,6 +75,7 @@ IO2GResponse* Listener::sendRequestAndWaitForUpdateEvent(IO2GRequest *request) {
 }
 
 IO2GResponse* Listener::sendRequest(IO2GRequest *request) {
+    mWaitingRequestId = request->getRequestID();
     mRequestInProgress = true;
     mSession->subscribeResponse(this);
     mSession->sendRequest(request);

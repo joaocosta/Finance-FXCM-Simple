@@ -11,7 +11,7 @@ class Listener : public IO2GResponseListener, ILog {
         bool mWaitingForUpdateEvent;
         double mTimeout;
         IO2GResponse *mResponse;
-        std::string mCompletedRequestId;
+        std::string mWaitingRequestId;
         std::string mFailReason;
     public:
         Listener(IO2GSession *);
