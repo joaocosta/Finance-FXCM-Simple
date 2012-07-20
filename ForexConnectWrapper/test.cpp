@@ -10,13 +10,16 @@ int main(int argc, char *argv[]) {
 
     try {
         tradeStation = new ForexConnectWrapper(user, password, connection, url);
-
+        //tradeStation->setSubscriptionStatus("GBP/CAD", "T");
+        tradeStation->listOffers();
+/*
         tradeStation->closeMarket("12914251", 3000);
         tradeStation->closeMarket("12914191", 3000);
         //tradeStation->openMarket("AUD/USD", "B", 3000);
 
         std::string trades = tradeStation->getTradesAsYAML();
         printf("%s\n", trades.c_str());
+*/
     }
 
     catch(char const *error) {

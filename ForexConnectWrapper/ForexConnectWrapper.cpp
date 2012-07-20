@@ -54,6 +54,65 @@ ForexConnectWrapper::~ForexConnectWrapper() {
     session->release();
 }
 
+void ForexConnectWrapper::listOffers() {
+    IO2GTableManager *tableManager = getLoadedTableManager();
+    IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager->getTable(::Offers);
+    tableManager->release();
+
+    IO2GOfferTableRow *offerRow = NULL;
+    IO2GTableIterator tableIterator;
+
+
+    while (offersTable->getNextRow(tableIterator, offerRow)) {
+        std::cout << offerRow->getInstrument() << "\t" << offerRow->getSubscriptionStatus()[0] << std::endl;
+    }
+    offerRow->release();
+    offersTable->release();
+}
+
+void ForexConnectWrapper::setSubscriptionStatus(std::string instrument, std::string status) {
+    IO2GTableManager *tableManager = getLoadedTableManager();
+    IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager->getTable(::Offers);
+    tableManager->release();
+
+    IO2GOfferTableRow *offerRow = NULL;
+    IO2GTableIterator tableIterator;
+    bool instrumentFound = false;
+
+    while (offersTable->getNextRow(tableIterator, offerRow)) {
+        if ( instrument == offerRow->getInstrument() ) {
+            instrumentFound = true;
+            IO2GRequestFactory *factory = session->getRequestFactory();
+
+            IO2GValueMap *valueMap = factory->createValueMap();
+            valueMap->setString(::Command, O2G2::Commands::SetSubscriptionStatus);
+            valueMap->setString(::SubscriptionStatus, status.c_str());
+            valueMap->setString(::OfferID, offerRow->getOfferID());
+
+            IO2GRequest *request = factory->createOrderRequest(valueMap);
+            valueMap->release();
+
+            Listener *ll = new Listener(session);
+            IO2GResponse *response = ll->sendRequest(request);
+            response->release();
+            request->release();
+            ll->release();
+            factory->release();
+
+            break;
+        }
+    }
+    offerRow->release();
+    offersTable->release();
+
+    if (!instrumentFound) {
+        std::stringstream ss;
+        ss << "Could not find offer row for instrument " << instrument;
+        log(ss.str());
+        throw ss.str().c_str();
+    }
+}
+
 std::string ForexConnectWrapper::getOfferID(std::string instrument) {
         IO2GTableManager *tableManager = getLoadedTableManager();
         IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager->getTable(::Offers);

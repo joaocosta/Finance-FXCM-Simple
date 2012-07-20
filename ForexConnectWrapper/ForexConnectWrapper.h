@@ -99,4 +99,6 @@ class ForexConnectWrapper : public ILog {
         std::string getTradesAsYAML();
         int getBaseUnitSize(const std::string);
         void saveHistoricalDataToFile(const std::string, const std::string, const std::string, int);
+        void listOffers();
+        void setSubscriptionStatus(std::string, std::string);
 };
