@@ -1,4 +1,4 @@
-#include "ForexConnectWrapper.h"
+#include "../ForexConnectWrapper.h"
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
     try {
         tradeStation = new ForexConnectWrapper(user, password, connection, url);
         //tradeStation->setSubscriptionStatus("GBP/CAD", "T");
-        tradeStation->listOffers();
 /*
         tradeStation->closeMarket("12914251", 3000);
         tradeStation->closeMarket("12914191", 3000);
