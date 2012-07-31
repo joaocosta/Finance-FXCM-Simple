@@ -46,7 +46,7 @@ Finance::FXCM:Simple - A synchronous wrapper to the FXCM ForexConnect API which 
             $ff->closeMarket($trade->{id}, $trade->{size}); # Close existing open position at current market price
         }
 
-        $ff->saveHistoricalDataToFile("/tmp/EURUSD", "EUR/USD", "m5", 100);
+        $ff->saveHistoricalDataToFile("/tmp/EURUSD", "EUR/USD", "m5", 100); # Fetch 100 bars of 5 minute historical data for instrument EUR/USD and save to /tmp/EURUSD
 
 =head1 DESCRIPTION
 
