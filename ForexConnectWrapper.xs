@@ -86,3 +86,18 @@ ForexConnectWrapper::saveHistoricalDataToFile(const char *filename, const char *
         TRY
     CLEANUP:
         CATCH
+
+string
+ForexConnectWrapper::getOffersHashAsYAML()
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
+
+void
+ForexConnectWrapper::setSubscriptionStatus(const char *symbol, const char *status)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
+

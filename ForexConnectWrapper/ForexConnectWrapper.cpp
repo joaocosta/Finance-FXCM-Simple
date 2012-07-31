@@ -54,7 +54,8 @@ ForexConnectWrapper::~ForexConnectWrapper() {
     session->release();
 }
 
-void ForexConnectWrapper::listOffers() {
+std::string ForexConnectWrapper::getOffersHashAsYAML() {
+    std::string rv;
     IO2GTableManager *tableManager = getLoadedTableManager();
     IO2GOffersTable *offersTable = (IO2GOffersTable *)tableManager->getTable(::Offers);
     tableManager->release();
@@ -62,12 +63,14 @@ void ForexConnectWrapper::listOffers() {
     IO2GOfferTableRow *offerRow = NULL;
     IO2GTableIterator tableIterator;
 
-
     while (offersTable->getNextRow(tableIterator, offerRow)) {
-        std::cout << offerRow->getInstrument() << "\t" << offerRow->getSubscriptionStatus()[0] << std::endl;
+        rv.append(offerRow->getInstrument()).append(": ").append(offerRow->getSubscriptionStatus()).append("\n");
+        //std::cout << offerRow->getInstrument() << "\t" << offerRow->getSubscriptionStatus()[0] << std::endl;
+        if (offerRow)
+            offerRow->release();
     }
-    offerRow->release();
     offersTable->release();
+    return rv;
 }
 
 void ForexConnectWrapper::setSubscriptionStatus(std::string instrument, std::string status) {
