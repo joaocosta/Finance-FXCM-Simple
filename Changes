@@ -1,4 +1,6 @@
 Revision history for Perl extension ForexConnect.
+0.007  Wed Aug 1 13:16:14
+    - Cleanup distribution package (META.{yml,json}, define build/runtime prerequisites)
 0.006  Tue Jun 31 21:45:34
     - API cleanup
     - More unit tests

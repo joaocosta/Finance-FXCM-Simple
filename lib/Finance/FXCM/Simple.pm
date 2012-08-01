@@ -1,7 +1,8 @@
-#ABSTRACT: Simple interface for trading FXCM accounts
 use strict;
 use warnings;
 package Finance::FXCM::Simple;
+
+our $VERSION = 0.007;
 
 require XSLoader;
 XSLoader::load(
@@ -25,9 +26,9 @@ sub getOffersHash {
 
 1;
 
-=head1 Finance::FXCM::Simple
+=head1 NAME
 
-Finance::FXCM:Simple - A synchronous wrapper to the FXCM ForexConnect API which is simple to use.
+Finance::FXCM::Simple - A synchronous wrapper to the FXCM ForexConnect API which is simple to use.
 
 =head1 SYNOPSIS
 
