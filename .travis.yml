@@ -8,7 +8,7 @@ before_install:
   - curl --insecure https://files.fxcorporate.com/api/fxc/ForexConnectAPI-1.2.0-Linux-i686.tar.gz | tar zxf -
   - echo $FXCONNECT_HOME
 install:
-  - true
+  - /bin/true
 after_install:
   - ls -l $FXCONNECT_HOME
 before_scrpt:
