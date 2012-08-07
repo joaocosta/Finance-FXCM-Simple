@@ -3,5 +3,9 @@ perl:
   - "5.16"
   - "5.14"
   - "5.12"
+env: FXCONNECT_HOME=~/ForexConnectAPI-1.2.0-Linux-i686
+before_install:
+  - curl https://files.fxcorporate.com/api/fxc/ForexConnectAPI-1.2.0-Linux-i686.tar.gz | tar zxvf -
+         
 install:
   - cpanm -v --installdeps --notest .
