@@ -7,7 +7,9 @@ die("
     location of the FXCONNECT library.  The library can be downloaded from:
     http://forexforums.dailyfx.com/forexconnect/392705-forexconnect-api-subscribe-updates.html")
     if (!$ENV{FXCONNECT_HOME});
-
+print "------------------------\n";
+print `ls -l $ENV{FXCONNECT_HOME}`;
+print "------------------------\n";
 WriteMakefile(
     NAME                => 'Finance::FXCM::Simple',
     VERSION_FROM        => 'lib/Finance/FXCM/Simple.pm',
