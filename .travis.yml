@@ -4,4 +4,4 @@ perl:
   - "5.14"
   - "5.12"
 install:
-  - cpanm --installdeps --notest .
+  - cpanm -v --installdeps --notest .
