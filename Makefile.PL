@@ -11,9 +11,6 @@ die("
 die("$ENV{FXCONNECT_HOME}/lib (fxconnect binary libraries) doesn't exist") if (! -d "$ENV{FXCONNECT_HOME}/lib");
 die("$ENV{FXCONNECT_HOME}/include (fxconnect c++ headers) doesn't exist") if (! -d "$ENV{FXCONNECT_HOME}/include");
 
-print "------------------------\n";
-print `ls -l $ENV{FXCONNECT_HOME}`;
-print "------------------------\n";
 WriteMakefile(
     NAME                => 'Finance::FXCM::Simple',
     VERSION_FROM        => 'lib/Finance/FXCM/Simple.pm',
