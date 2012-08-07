@@ -7,6 +7,10 @@ die("
     location of the FXCONNECT library.  The library can be downloaded from:
     http://forexforums.dailyfx.com/forexconnect/392705-forexconnect-api-subscribe-updates.html")
     if (!$ENV{FXCONNECT_HOME});
+
+die("$ENV{FXCONNECT_HOME}/lib (fxconnect binary libraries) doesn't exist") if (! -d "$ENV{FXCONNECT_HOME}/lib");
+die("$ENV{FXCONNECT_HOME}/include (fxconnect c++ headers) doesn't exist") if (! -d "$ENV{FXCONNECT_HOME}/include");
+
 print "------------------------\n";
 print `ls -l $ENV{FXCONNECT_HOME}`;
 print "------------------------\n";
