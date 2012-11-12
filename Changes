@@ -1,4 +1,7 @@
 Revision history for Perl extension ForexConnect.
+0.008  Mon Nov 12 23:53:43
+    - Add missing header to include usleep definition
+    - At build time, look for libforexconnect in standard system directories and get rid of homemade FXCONNECT_HOME env variable
 0.007  Wed Aug 1 13:16:14
     - Cleanup distribution package (META.{yml,json}, define build/runtime prerequisites)
 0.006  Tue Jun 31 21:45:34

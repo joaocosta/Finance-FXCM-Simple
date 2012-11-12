@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Finance::FXCM::Simple;
 
-our $VERSION = 0.007;
+our $VERSION = 0.008;
 
 require XSLoader;
 XSLoader::load(
