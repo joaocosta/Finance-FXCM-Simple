@@ -1,6 +1,7 @@
 #pragma once
 #include "ForexConnect.h"
 #include <string>
+#include <unistd.h>
 #include "Interlocked.h"
 
 class Session : public IO2GSessionStatus {

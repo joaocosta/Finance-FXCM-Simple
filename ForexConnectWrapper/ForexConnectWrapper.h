@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <unistd.h>
 #include "ForexConnect.h"
 #include "Session.h"
 #include "ILog.h"
