@@ -34,6 +34,7 @@ WriteMakefile(
     'PREREQ_PM'         => {
         'YAML::Syck'    => 0,
     },
+    LICENSE             => 'mit',
     ( $] >= 5.005 ? 
         (   ABSTRACT_FROM       => 'lib/Finance/FXCM/Simple.pm',
             AUTHOR              => 'João Costa <joaocosta@zonalivre.org>',
