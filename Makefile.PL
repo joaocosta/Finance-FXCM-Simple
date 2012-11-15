@@ -4,17 +4,6 @@ use ExtUtils::MakeMaker;
 
 use Config;
 
-my @include_paths = (split(/ /, $Config{locincpth}), $Config{usrinc});
-my $fxcm_devel_home;
-foreach my $incpth (@include_paths) {
-    if (-r "$incpth/ForexConnect.h") {
-        $fxcm_devel_home = $incpth;
-        last;
-    }
-}
-
-die("Could not find fxcm headers in any of:\n\t" . join("\n\t", @include_paths) . "\nThe library can be downloaded from: http://forexforums.dailyfx.com/forexconnect/392705-forexconnect-api-subscribe-updates.html") if (!$fxcm_devel_home);
-
 WriteMakefile(
     NAME                => 'Finance::FXCM::Simple',
     VERSION_FROM        => 'lib/Finance/FXCM/Simple.pm',
