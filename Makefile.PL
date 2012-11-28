@@ -4,12 +4,14 @@ use ExtUtils::MakeMaker;
 
 use Config;
 
+my $fxconnect_home = $ENV{FXCONNECT_HOME} || '.';
+
 WriteMakefile(
     NAME                => 'Finance::FXCM::Simple',
     VERSION_FROM        => 'lib/Finance/FXCM/Simple.pm',
-    LIBS                => ["-lForexConnect -lfxmsg"],
+    LIBS                => ["-L$fxconnect_home/lib -lForexConnect -lfxmsg"],
     DEFINE              => '',
-    INC                 => "-I.",
+    INC                 => "-I. -I$fxconnect_home/include",
     OBJECT              => '$(O_FILES)', # link all the C files too
     'XSOPT'             => '-C++',
     'TYPEMAPS'          => ['perlobject.map'],
