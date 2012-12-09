@@ -1,4 +1,10 @@
 Revision history for Perl extension ForexConnect.
+
+{{$NEXT}}
+    - Convert dist to Dist::Zilla
+    - Optionally use FXCONNECT_HOME when building
+    - Deal with test reliability issues in CI environment
+    - Pod encoding fix, plus link to github/travis-ci
 0.008  Mon Nov 12 23:53:43
     - Add missing header to include usleep definition
     - Don't check for dependencies on Makefile.PL
