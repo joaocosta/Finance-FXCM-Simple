@@ -22,10 +22,17 @@ SKIP: {
         ok(looks_like_number($ff->getBalance()), "getBalance returns a number");
         ok(looks_like_number($ff->getBaseUnitSize("XAU/USD")), "getBaseUnitSize returns a number");
         ok(looks_like_number($ff->getBaseUnitSize("EUR/CAD")), "getBaseUnitSize works for EUR/CAD pair");
-        $ff->openMarket("EUR/USD", "B", 5000);
+
+
+        #Close any existing trades to get the account into a well defined state
         my $trades = $ff->getTrades();
+        foreach my $trade(@$trades) {
+            $ff->closeMarket($trade->{id}, $trade->{size});
+        }
+
+        $ff->openMarket("EUR/USD", "B", 5000);
+        $trades = $ff->getTrades();
         is(@$trades, 1, "1 trade opened");
-        print Dumper(\$trades);
         foreach my $trade(@$trades) {
             $ff->closeMarket($trade->{id}, $trade->{size});
         }
