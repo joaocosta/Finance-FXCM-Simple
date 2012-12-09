@@ -8,4 +8,4 @@ test: $(SOURCES) $(HEADERS)
 	gcc $(INCS) $(LIBS) -Wall -O2 -lm -lForexConnect -lfxmsg -lstdc++ -o test $(SOURCES)
 
 clean:
-	rm test
+	rm -f test
