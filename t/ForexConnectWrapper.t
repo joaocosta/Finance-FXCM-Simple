@@ -32,7 +32,6 @@ SKIP: {
 
         $ff->openMarket("EUR/USD", "B", 5000);
         $trades = $ff->getTrades();
-        diag(Dumper(\$trades);
         is(@$trades, 1, "1 trade opened");
         foreach my $trade(@$trades) {
             $ff->closeMarket($trade->{id}, $trade->{size});
