@@ -26,6 +26,8 @@ sub getOffersHash {
 
 1;
 
+=encoding utf8
+
 =head1 NAME
 
 Finance::FXCM::Simple - A synchronous wrapper to the FXCM ForexConnect API which is simple to use.
@@ -263,6 +265,11 @@ Value indicating wether subscription should be set or unset. Use 'T' to subscrib
 =back
 
 =back
+
+=head1 SOURCE CODE AND CI
+
+L<https://github.com/joaocosta/Finance-FXCM-Simple>
+L<https://travis-ci.org/joaocosta/Finance-FXCM-Simple>
 
 =head1 AUTHOR
 
