@@ -1,3 +1,6 @@
+[![Build Status](https://secure.travis-ci.org/joaocosta/Finance-FXCM-Simple.png?branch=master)](https://travis-ci.org/joaocosta/Finance-FXCM-Simple)
+
+
 Copyright (C) 2012 João Costa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
