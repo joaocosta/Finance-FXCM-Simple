@@ -1,0 +1,1 @@
+update GBPJPY_604800 set low = close where datetime = '2006-11-10 21:00:00';
