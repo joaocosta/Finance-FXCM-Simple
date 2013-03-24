@@ -275,7 +275,7 @@ João Costa <joaocosta@zonalivre.org>
 
 =head1 COPYRIGHT AND LICENSE
 
- This software is Copyright (c) 2012 by João Costa.
+ This software is Copyright (c) 2013 by João Costa.
 
  This is free software, licensed under:
 
