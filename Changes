@@ -1,7 +1,7 @@
 Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
-
+    - Handle exceptions in constructor
 0.009 2012-12-09 19:23:23 UTC
     - Convert dist to Dist::Zilla
     - Optionally use FXCONNECT_HOME when building

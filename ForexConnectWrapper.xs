@@ -26,7 +26,11 @@ using namespace std;
 MODULE = Finance::FXCM::Simple		PACKAGE = Finance::FXCM::Simple		
 
 ForexConnectWrapper *
-ForexConnectWrapper::new(const char *user, const char *password, const char *accountType, const char *url);
+ForexConnectWrapper::new(const char *user, const char *password, const char *accountType, const char *url)
+    INIT:
+        TRY
+    CLEANUP:
+        CATCH
 
 void
 ForexConnectWrapper::DESTROY()
