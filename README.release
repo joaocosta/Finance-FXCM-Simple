@@ -12,12 +12,12 @@ cpanspec Finance-FXCM-Simple-*.tar.gz
 vimdiff perl-Finance-FXCM-Simple.spec spec/perl-Finance-FXCM-Simple.spec
 
 #build rpm
-mach build spec/perl-Finance-FXCM-Simple.spec
+cp Finance-FXCM-Simple-*.tar.gz ~/rpmbuild/SOURCES/
+cp spec/perl-Finance-FXCM-Simple.spec ~/rpmbuild/SPECS/
 
-#If mach build fails, try:
-mach clean
-cp /etc/yum.repos.d/zonalivre.repo /var/lib/mach/states/fedora-16-x86_64-updates/yum/yum.repos.d/
-# Then repeat the build rpm step
+rpmbuild -bs ~/rpmbuild/SPECS/perl-Finance-FXCM-Simple.spec
+mock rebuild --no-clean ~/rpmbuild/SRPMS/perl-Finance-FXCM-Simple-*.src.rpm
+mock install /var/lib/mock/fedora-20-x86_64/result/perl-Finance-FXCM-Simple-0.010-1.fc20.x86_64.rpm
 
 #commit spec file
 git commit -m "Updated spec file for latest version" spec/perl-Finance-FXCM-Simple.spec
