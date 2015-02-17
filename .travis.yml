@@ -1,9 +1,9 @@
 language: perl
 perl:
-  - "5.14"
+  - "5.20"
 env: FXCONNECT_HOME=~/ForexConnectAPI-1.2.2-Linux-x86_64 FXCM_USER=GBD118836001 FXCM_PASSWORD=5358
 before_install:
   - curl --insecure https://files.fxcorporate.com/api/fxc-1.2.2/ForexConnectAPI-1.2.2-Linux-x86_64.tar.gz | tar zxf - -C ~
 install:
-  - cpanm -v --installdeps --notest --mirror http://cpan.mirrors.travis-ci.org .;cpanm -v --notest --mirror http://cpan.mirrors.travis-ci.org Dist::Zilla;dzil authordeps | cpanm
+  - cpanm -v --installdeps --notest .;cpanm -v --notest Dist::Zilla;dzil authordeps | cpanm
 script: dzil test
