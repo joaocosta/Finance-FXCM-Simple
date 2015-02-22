@@ -32,6 +32,14 @@ Finance::FXCM::Simple - A synchronous wrapper to the FXCM ForexConnect API which
 
 =head1 SYNOPSIS
 
+# This module depends on binary only library, get it first, ie:
+
+curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | sudo tar zxf - -C ~/
+sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/include/* /usr/include/.
+sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/lib/* /usr/lib64/.
+
+
+###
         my $ff = Finance::FXCM::Simple->new($ENV{FXCM_USER}, $ENV{FXCM_PASSWORD}, "Demo", "http://www.fxcorporate.com/Hosts.jsp");
         $ff->setSubscriptionStatus('EUR/CAD', 'D');         # Don't receive data updates to EUR/CAD
         $ff->setSubscriptionStatus('EUR/USD', 'T');         # Receive data updates to EUR/USD
