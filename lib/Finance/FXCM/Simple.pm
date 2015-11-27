@@ -32,35 +32,71 @@ Finance::FXCM::Simple - A synchronous wrapper to the FXCM ForexConnect API which
 
 =head1 SYNOPSIS
 
-# This module depends on binary only library, get it first, ie:
+        my $ff = Finance::FXCM::Simple->new(
+                        $ENV{FXCM_USER},
+                        $ENV{FXCM_PASSWORD},
+                        "Demo",
+                        "http://www.fxcorporate.com/Hosts.jsp");
 
-curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | sudo tar zxf - -C ~/
-sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/include/* /usr/include/.
-sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/lib/* /usr/lib64/.
+        # Don't receive data updates to EUR/CAD
+        $ff->setSubscriptionStatus('EUR/CAD', 'D');
 
+        # Receive data updates to EUR/USD
+        $ff->setSubscriptionStatus('EUR/USD', 'T');
 
-###
-        my $ff = Finance::FXCM::Simple->new($ENV{FXCM_USER}, $ENV{FXCM_PASSWORD}, "Demo", "http://www.fxcorporate.com/Hosts.jsp");
-        $ff->setSubscriptionStatus('EUR/CAD', 'D');         # Don't receive data updates to EUR/CAD
-        $ff->setSubscriptionStatus('EUR/USD', 'T');         # Receive data updates to EUR/USD
-        my $offers_hash = $ff->getOffersHash();             # Hash of data subscription status keyed on instrument
-        $ff->getAsk("EUR/USD");                             # Get current ask price for instrument
-        $ff->getBid("EUR/USD");                             # Get current bid price for instrument
-        $ff->getBalance();                                  # Get current account balance
-        $ff->getBaseUnitSize("XAU/USD");                    # The minimum size that can be traded in instrument
-        $ff->openMarket("EUR/USD", "B", 10000);             # Open long position in instrument at current market price
-        $ff->openMarket("EUR/GBP", "S", 10000);             # Open short position in instrument at current market price
-        my $trades = $ff->getTrades();                      # Get list of open positions
+        # Hash of data subscription status keyed on instrument
+        my $offers_hash = $ff->getOffersHash();
+
+        # Get current ask price for instrument
+        $ff->getAsk("EUR/USD");
+
+        # Get current bid price for instrument
+        $ff->getBid("EUR/USD");
+
+        # Get current account balance
+        $ff->getBalance();
+
+        # The minimum size that can be traded in instrument
+        $ff->getBaseUnitSize("XAU/USD");
+
+        # Open long position in instrument at current market price
+        $ff->openMarket("EUR/USD", "B", 10000);
+
+        # Open short position in instrument at current market price
+        $ff->openMarket("EUR/GBP", "S", 10000);
+
+        # Get list of open positions
+        my $trades = $ff->getTrades();
         foreach my $trade(@$trades) {
-            $ff->closeMarket($trade->{id}, $trade->{size}); # Close existing open position at current market price
+            # Close existing open position at current market price
+            $ff->closeMarket($trade->{id}, $trade->{size});
         }
 
-        $ff->saveHistoricalDataToFile("/tmp/EURUSD", "EUR/USD", "m5", 100); # Fetch 100 bars of 5 minute historical data for instrument EUR/USD and save to /tmp/EURUSD
+        # Fetch 100 bars of 5 minute historical data for instrument EUR/USD and save to /tmp/EURUSD
+        $ff->saveHistoricalDataToFile("/tmp/EURUSD", "EUR/USD", "m5", 100);
 
 =head1 DESCRIPTION
 
-This module allows you to open/close/query positions in both real or demo FXCM trading accounts, as well as download historical price data for instruments supported by FXCM.
+Simple wrapper to FXCM's ForexConnect API, allows you to open/close/query positions in both real or demo FXCM trading accounts, as well as download historical price data for instruments supported by FXCM.
 
+=head1 COMPILING
+
+This module depends on L<FXCM's ForexConnect library|http://fxcodebase.com/wiki/index.php/Download> which is available in binary form only.
+
+By default, only a small subset of tests run. To run the full test suite, you can optionally create a L<FXCM demo account|https://www.fxcm.com/forex-trading-demo/>.
+
+
+    curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | tar zxf - -C ~
+    sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/include/* /usr/include/.
+    sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/lib/* /usr/lib64/.
+
+    FXCONNECT_HOME=~/ForexConnectAPI-1.3.2-Linux-x86_64
+    FXCM_USER=DEMO_USERNAME # Optional, only required to run full test suite
+    FXCM_PASSWORD=DEMO_PWD  # Optional, only required to run full test suite
+    perl Makefile.PL
+    make
+    make test
+    sudo make install
 
 =head2 METHODS
 
