@@ -1,6 +1,8 @@
 Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
+
+0.011 2015-11-27 21:35:26 UTC
     - Improved documentation
     - Improved travis-ci integration
 0.010 2013-03-24 17:23:30 UTC
