@@ -2,7 +2,7 @@ To cut a new release
 
 # Look at differences since last release and update Changes file
 git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
-vi Changes
+vi Changes dist.ini
 
 #cut release
 dzil release
