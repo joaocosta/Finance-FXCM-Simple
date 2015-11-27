@@ -308,9 +308,12 @@ Value indicating wether subscription should be set or unset. Use 'T' to subscrib
 
 =back
 
-=head1 SOURCE CODE AND CI
+=head1 SOURCE CODE
 
 L<https://github.com/joaocosta/Finance-FXCM-Simple>
+
+=head1 CI
+
 L<https://travis-ci.org/joaocosta/Finance-FXCM-Simple>
 
 =head1 AUTHOR
