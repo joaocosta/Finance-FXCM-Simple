@@ -1,6 +1,8 @@
 Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
+
+0.012 2016-02-18 04:34:04 UTC
     - Use YAML::XS instead of YAML::Syck
     - Better document compile time dependency
 0.011 2015-11-27 21:35:26 UTC
