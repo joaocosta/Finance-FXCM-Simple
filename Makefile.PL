@@ -21,7 +21,7 @@ WriteMakefile(
         'Scalar::Util'  =>  0,
     },
     'PREREQ_PM'         => {
-        'YAML::Syck'    => 0,
+        'YAML::XS'    => 0,
     },
     LICENSE             => 'mit',
     ( $] >= 5.005 ? 

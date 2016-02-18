@@ -8,17 +8,17 @@ XSLoader::load(
     $Finance::FXCM::Simple::{VERSION} ? ${ $Finance::FXCM::Simple::{VERSION} } : ()
 );
 
-use YAML::Syck;
+use YAML::XS;
 
 sub getTrades {
     my ($self) = @_;
-    my $trades = YAML::Syck::Load($self->getTradesAsYAML());
+    my $trades = Load($self->getTradesAsYAML());
     return $trades;
 }
 
 sub getOffersHash {
     my ($self) = @_;
-    my $trades = YAML::Syck::Load($self->getOffersHashAsYAML());
+    my $trades = Load($self->getOffersHashAsYAML());
     return $trades;
 }
 

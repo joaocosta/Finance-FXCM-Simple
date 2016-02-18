@@ -10,9 +10,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(YAML::Syck)
+BuildRequires:  perl(YAML::XS)
 BuildRequires:  libforexconnect-devel
-Requires:       perl(YAML::Syck)
+Requires:       perl(YAML::XS)
 Requires:       libforexconnect
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
