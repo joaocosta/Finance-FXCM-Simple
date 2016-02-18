@@ -5,5 +5,5 @@ env: FXCONNECT_HOME=~/ForexConnectAPI-1.3.2-Linux-x86_64 FXCM_USER=GBD118836001 
 before_install:
   - curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | tar zxf - -C ~
 install:
-  - cpanm -v --installdeps --notest .;cpanm -v --notest Dist::Zilla;dzil authordeps | cpanm
+  - cpanm -v --installdeps --notest .;cpanm -v --notest Dist::Zilla;dzil authordeps | cpanm --notest
 script: dzil test
