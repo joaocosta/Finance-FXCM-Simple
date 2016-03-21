@@ -16,6 +16,12 @@ sub getTrades {
     return $trades;
 }
 
+sub getTradesForSymbol {
+    my ($self, $symbol) = @_;
+
+    return [ grep { $_->{symbol} eq $symbol } @{ $self->getTrades() } ];
+}
+
 sub getOffersHash {
     my ($self) = @_;
     my $trades = Load($self->getOffersHashAsYAML());
