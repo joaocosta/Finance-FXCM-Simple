@@ -1,6 +1,8 @@
 Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
+
+0.013 2016-03-21 22:31:11 UTC
     - Add method getTradesForSymbol
 0.012 2016-02-18 04:34:04 UTC
     - Use YAML::XS instead of YAML::Syck
