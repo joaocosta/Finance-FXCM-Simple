@@ -194,7 +194,7 @@ An integer representing the size of the position to be closed. This can either b
 
 =item C<getTrades()>
 
-Returns a reference to a list of currently opened trades.  Each element in the list is an reference to an hash with the following keys:
+Returns a reference to a list of currently opened trades.  Each element in the list is a reference to an hash with the following keys:
 
 =over 16
 
@@ -328,7 +328,7 @@ João Costa <joaocosta@zonalivre.org>
 
 =head1 COPYRIGHT AND LICENSE
 
- This software is Copyright (c) 2013 by João Costa.
+ This software is Copyright (c) 2016 by João Costa.
 
  This is free software, licensed under:
 
