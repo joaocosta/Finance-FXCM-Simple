@@ -134,7 +134,7 @@ The url to connect to, typically this will be 'http://www.fxcorporate.com/Hosts.
 
 =item C<getAsk($instrument)>
 
-Get current ask price of instrument.  Subscription status must be set, see L</"setSubscriptionStatus($instrument, $status)">
+Get current ask price of instrument.  This is the price you can buy at.  Subscription status must be set, see L</"setSubscriptionStatus($instrument, $status)">
 
 =over 16
 
@@ -146,7 +146,7 @@ The instrument to fetch ask price for.
 
 =item C<getBid($instrument)>
 
-Get current bid price of instrument.  Subscription status must be set, see L</"setSubscriptionStatus($instrument, $status)">
+Get current bid price of instrument.  This is the price you can sell at.  Subscription status must be set, see L</"setSubscriptionStatus($instrument, $status)">
 
 =over 16
 
