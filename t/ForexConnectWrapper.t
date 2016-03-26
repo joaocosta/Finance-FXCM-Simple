@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test::More tests => 15;
 use Scalar::Util qw(looks_like_number);
 use Data::Dumper;
 
@@ -30,14 +30,17 @@ SKIP: {
             $ff->closeMarket($trade->{id}, $trade->{size});
         }
 
-	$ff->openMarket("AUD/USD", "B", 1000);
+        $trades = $ff->getTrades();
+        is(@$trades, 0, "getTrades returns empty array ref (instead of undef) when no trades opened");
 
-	$trades = $ff->getTradesForSymbol("AUD/USD");
+        $ff->openMarket("AUD/USD", "B", 1000);
+
+        $trades = $ff->getTradesForSymbol("AUD/USD");
         is(@$trades, 1, "1 trade opened");
         is($trades->[0]->{symbol}, "AUD/USD", "AUD/USD trade");
         is($trades->[0]->{direction}, "long", "AUD/USD trade long");
         is($trades->[0]->{size}, "1000", "AUD/USD trade long 1000");
-	
+
         $ff->openMarket("EUR/USD", "B", 5000);
         $trades = $ff->getTrades();
         is(@$trades, 2, "2 trades opened");
