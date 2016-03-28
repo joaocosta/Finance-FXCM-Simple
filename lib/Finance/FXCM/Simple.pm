@@ -24,8 +24,8 @@ sub getTradesForSymbol {
 
 sub getOffersHash {
     my ($self) = @_;
-    my $trades = Load($self->getOffersHashAsYAML());
-    return $trades;
+    my $offersHash = Load($self->getOffersHashAsYAML());
+    return $offersHash;
 }
 
 1;
