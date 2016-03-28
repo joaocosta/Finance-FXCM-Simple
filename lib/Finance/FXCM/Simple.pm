@@ -13,13 +13,13 @@ use YAML::XS;
 sub getTrades {
     my ($self) = @_;
     my $trades = Load($self->getTradesAsYAML());
-    return $trades;
+    return defined($trades) ? $trades : [];
 }
 
 sub getTradesForSymbol {
     my ($self, $symbol) = @_;
 
-    return [ grep { $_->{symbol} eq $symbol } @{ $self->getTrades() || [] } ];
+    return [ grep { $_->{symbol} eq $symbol } @{ $self->getTrades() } ];
 }
 
 sub getOffersHash {
