@@ -19,7 +19,7 @@ sub getTrades {
 sub getTradesForSymbol {
     my ($self, $symbol) = @_;
 
-    return [ grep { $_->{symbol} eq $symbol } @{ $self->getTrades() } ];
+    return [ grep { $_->{symbol} eq $symbol } @{ $self->getTrades() || [] } ];
 }
 
 sub getOffersHash {
