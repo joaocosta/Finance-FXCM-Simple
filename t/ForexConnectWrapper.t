@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More tests => 10;
 use Scalar::Util qw(looks_like_number);
 use Data::Dumper;
 
