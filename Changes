@@ -2,6 +2,9 @@ Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
 
+0.014 2016-03-28 22:42:24 UTC
+    - Minor doc changes
+    - getTrades returns an empty list instead of undef if no trades exist
 0.013 2016-03-21 22:31:11 UTC
     - Add method getTradesForSymbol
 0.012 2016-02-18 04:34:04 UTC
