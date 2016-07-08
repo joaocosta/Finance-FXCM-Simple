@@ -5,7 +5,7 @@ SOURCES=test.cpp ../ForexConnectWrapper.cpp ../Listener.cpp ../Session.cpp ../IL
 HEADERS=../ForexConnectWrapper.h ../Listener.h ../Session.h ../ILog.h ../TableListener.h
 
 test: $(SOURCES) $(HEADERS)
-	gcc $(INCS) $(LIBS) -Wall -O2 -lm -lForexConnect -lfxmsg -lstdc++ -o test $(SOURCES)
+	gcc $(INCS) $(LIBS) -Wall -O0 -g -lm -lForexConnect -lfxmsg -lstdc++ -o test $(SOURCES)
 
 clean:
 	rm -f test
