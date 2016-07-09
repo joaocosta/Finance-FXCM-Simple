@@ -8,8 +8,8 @@ This module provides methods to trade FXCM accounts in perl, by wrapping around 
 
 This module depends on the ForexConnect library, which is available in binary format only, eg:
 
-    curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | tar zxf - -C ~
-    export FXCONNECT_HOME=~/ForexConnectAPI-1.3.2-Linux-x86_64
+    curl http://fxcodebase.com/bin/forexconnect/1.4.1/ForexConnectAPI-1.4.1-Linux-x86_64.tar.gz | tar zxf - -C ~
+    export FXCONNECT_HOME=~/ForexConnectAPI-1.4.1-Linux-x86_64
     perl Makefile.PL
     make
 

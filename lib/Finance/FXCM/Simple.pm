@@ -92,11 +92,11 @@ This module depends on L<FXCM's ForexConnect library|http://fxcodebase.com/wiki/
 By default, only a small subset of tests run. To run the full test suite, you can optionally create a L<FXCM demo account|https://www.fxcm.com/forex-trading-demo/>.
 
 
-    curl http://fxcodebase.com/bin/forexconnect/1.3.2/ForexConnectAPI-1.3.2-Linux-x86_64.tar.gz | tar zxf - -C ~
-    sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/include/* /usr/include/.
-    sudo cp -R ~/ForexConnectAPI-1.3.2-Linux-x86_64/lib/* /usr/lib64/.
+    curl http://fxcodebase.com/bin/forexconnect/1.4.1/ForexConnectAPI-1.4.1-Linux-x86_64.tar.gz | tar zxf - -C ~
+    sudo cp -R ~/ForexConnectAPI-1.4.1-Linux-x86_64/include/* /usr/include/.
+    sudo cp -R ~/ForexConnectAPI-1.4.1-Linux-x86_64/lib/* /usr/lib64/.
 
-    FXCONNECT_HOME=~/ForexConnectAPI-1.3.2-Linux-x86_64
+    FXCONNECT_HOME=~/ForexConnectAPI-1.4.1-Linux-x86_64
     FXCM_USER=DEMO_USERNAME # Optional, only required to run full test suite
     FXCM_PASSWORD=DEMO_PWD  # Optional, only required to run full test suite
     perl Makefile.PL
