@@ -92,15 +92,12 @@ bool Session::loginAndWait(const std::string user, const std::string password, c
 
         switch (mStatusCode) {
             case IO2GSessionStatus::Connected:
+            case IO2GSessionStatus::ConnectedWithNeedToChangePassword:
                 return true;
             case IO2GSessionStatus::Disconnected:
             case IO2GSessionStatus::SessionLost:
                 return false;
-            case IO2GSessionStatus::Connecting:
-            case IO2GSessionStatus::TradingSessionRequested:
-            case IO2GSessionStatus::Reconnecting:
-            case IO2GSessionStatus::Disconnecting:
-            case IO2GSessionStatus::PriceSessionReconnecting:
+            default:
                 break;
         }
     }
@@ -129,12 +126,7 @@ bool Session::logoutAndWait() {
             case IO2GSessionStatus::Disconnected:
             case IO2GSessionStatus::SessionLost:
                 return true;
-            case IO2GSessionStatus::Connecting:
-            case IO2GSessionStatus::TradingSessionRequested:
-            case IO2GSessionStatus::Connected:
-            case IO2GSessionStatus::Reconnecting:
-            case IO2GSessionStatus::Disconnecting:
-            case IO2GSessionStatus::PriceSessionReconnecting:
+            default:
                 break;
         }
     }
