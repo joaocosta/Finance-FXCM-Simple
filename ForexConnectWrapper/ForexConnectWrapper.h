@@ -78,7 +78,7 @@ class ForexConnectWrapper : public ILog {
         IO2GSession* session;
         Session* listener;
         IO2GLoginRules* loginRules;
-        IO2GAccountRow* accountRow = NULL;
+        IO2GAccountRow* accountRow;
         IO2GResponseReaderFactory* mResponseReaderFactory;
         IO2GRequestFactory* mRequestFactory;
         std::string sAccountID;
