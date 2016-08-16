@@ -1,7 +1,7 @@
 Revision history for Perl extension ForexConnect.
 
 {{$NEXT}}
-
+    - Check that symbol is valid in saveHistoricalDataToFile
 0.014 2016-03-28 22:42:24 UTC
     - Minor doc changes
     - getTrades returns an empty list instead of undef if no trades exist

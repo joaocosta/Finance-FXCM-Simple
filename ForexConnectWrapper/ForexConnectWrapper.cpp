@@ -425,6 +425,11 @@ void ForexConnectWrapper::saveHistoricalDataToFile(const std::string filename, c
         Listener *ll = new Listener(session);
         while (totalItemsToDownload > 0) {
             IO2GRequest *marketDataRequest = mRequestFactory->createMarketDataSnapshotRequestInstrument(symbol.c_str(), timeframeObject, totalItemsToDownload > 300 ? 300 : totalItemsToDownload);
+            if (!marketDataRequest) {
+                std::ostringstream errorMsg;
+                errorMsg << "Failed to create MarketDataSnapshotRequestInstrument for " << symbol.c_str();
+                throw  errorMsg.str();
+            }
             mRequestFactory->fillMarketDataSnapshotRequestTime(marketDataRequest, timeFrom, timeTo, false);
             IO2GResponse *marketDataResponse = ll->sendRequest(marketDataRequest);
             if (!marketDataResponse) {
